@@ -2,7 +2,7 @@ import { useState } from "react";
 
 function App() {
   const [calc, setCalc] = useState("");
-  const [result, setResult] = useState("");
+  const [setResult] = useState("");
 
   const op = ["/", "*", "+", "-", "."];
   const updateCalc = (value) => {
@@ -13,10 +13,12 @@ function App() {
       return;
     }
 
+   
+
     setCalc(calc + value);
 
     if (!op.includes(value)) {
-      setResult(eval(calc + value).toString());
+      setResult(safeEval(calc + value).toString());
     }
   };
 
@@ -33,8 +35,13 @@ function App() {
     return digits;
   };
   
+  const clear = () =>{
+      setCalc("");
+
+  }
+
   const deletelast = () => {
-    if (calc == ''){
+    if (calc ===''){
       return;
     }
     const value = calc.slice(0, -1);
@@ -43,13 +50,38 @@ function App() {
   }
 
   const calculate = () =>{
-    setCalc(eval(calc).toString());
+    setCalc(safeEval(calc).toString());
   }
+
+
+  const safeEval = (expression) =>{
+    const parts = expression.match(/^(\d+)([*/+-])(\d+)$/);
+    if (parts) {
+        var num1 = parseInt(parts[1])
+        var operation= parts[2]
+        var num2= parseInt(parts[3])
+
+        switch (operation) {
+          case '+':
+            return num1 + num2;
+          case '-':
+            return num1 - num2;
+          case '*':
+            return num1 * num2;
+          case '/':
+            return num1 / num2;
+          default:
+            return undefined;
+        }
+    }
+    
+  }
+
   return (
     <div className="App">
       <div className="calculator">
         <div className="display">
-          {result? <span>({result})</span> : "" }&nbsp;
+    
           {calc || "0"}
         </div>
 
@@ -60,6 +92,7 @@ function App() {
           <button onClick={() => updateCalc("-")}>-</button>
 
           <button onClick={deletelast}>DEL</button>
+          <button onClick={clear}>C</button>
         </div>
 
         <div className="digits">

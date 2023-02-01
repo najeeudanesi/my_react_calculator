@@ -41,11 +41,13 @@ body {
   color: var(--light);
   font-size: 24px;
   font-weight: 300;
+  height: 60px;
 }
 
 .display span{
   font-size: 14px;
   color: #888;
+ 
 }
 
 button{
