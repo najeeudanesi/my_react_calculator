@@ -4,12 +4,14 @@ function App() {
   const [calc, setCalc] = useState("");
   const [setResult] = useState("");
 
+ 
   const op = ["/", "*", "+", "-", "."];
   const updateCalc = (value) => {
     if (
       (op.includes(value) && calc === "") ||
       (op.includes(value) && op.includes(calc.slice(-1)))
     ) {
+    
       return;
     }
 
@@ -54,29 +56,30 @@ function App() {
   }
 
 
-  const safeEval = (expression) =>{
-    const parts = expression.match(/^(\d+)([*/+-])(\d+)$/);
-    if (parts) {
-        var num1 = parseInt(parts[1])
-        var operation= parts[2]
-        var num2= parseInt(parts[3])
-
-        switch (operation) {
-          case '+':
-            return num1 + num2;
-          case '-':
-            return num1 - num2;
-          case '*':
-            return num1 * num2;
-          case '/':
-            return num1 / num2;
-          default:
-            return undefined;
-        }
+  const solveSingle = (arr) =>{
+    arr = arr.slice();
+    while(arr.length-1){
+      if(arr[1] === '*') arr[0] = arr[0] * arr[2]
+      if(arr[1] === '-') arr[0] = arr[0] - arr[2]
+      if(arr[1] === '+') arr[0] = +arr[0] + (+arr[2])
+      if(arr[1] === '/') arr[0] = arr[0] / arr[2]
+      arr.splice(1,1);
+      arr.splice(1,1);
     }
-    
+    return arr[0];
   }
 
+  const safeEval =(eq) =>{
+    let res = eq.split(/(\+|-)/g).map(x => x.trim().split(/(\*|\/)/g).map(a => a.trim()));
+    res = res.map(x => solveSingle(x)); //evaluating nested * and  / operations.
+     
+    return solveSingle(res) //at last evaluating + and -
+    
+  }
+  
+ 
+  
+  
   return (
     <div className="App">
       <div className="calculator">
@@ -90,8 +93,9 @@ function App() {
           <button onClick={() => updateCalc("*")}>*</button>
           <button onClick={() => updateCalc("+")}>+</button>
           <button onClick={() => updateCalc("-")}>-</button>
-
           <button onClick={deletelast}>DEL</button>
+
+         
           <button onClick={clear}>C</button>
         </div>
 
