@@ -1,8 +1,10 @@
 :root {
-  --primary: blue;
+  --primary: #1300EF;
   --secondary: #9c45ff;   
-  --black: rgb(9, 14, 65);
+  --black: #041541;
   --light: #eeee;
+  --op: #0414A9;
+
 
 }
 
@@ -34,20 +36,23 @@ body {
    box-shadow: 0px 2px 64px rgba(37, 76, 250, 0);
 }
 
-.display{
-  padding: 16px;
+.bg_display{
+  padding-top: 30px;
   text-align:right;
   background-color: var(--black);
   color: var(--light);
   font-size: 24px;
   font-weight: 300;
-  height: 60px;
+  height: 120px;
+  
 }
 
-.display span{
-  font-size: 14px;
-  color: #888;
- 
+.display{
+  background: #0414A9;
+box-shadow: 0px 4px 28px 1px rgba(51, 157, 255, 0.18);
+height: 60px;
+padding: 12px;
+
 }
 
 button{
@@ -59,6 +64,7 @@ button{
   padding: 16px;
   cursor: pointer;
   transition: 0.4s;
+
 }
 
 button:hover {
@@ -67,12 +73,20 @@ button:hover {
 
 .operators{
   display: flex;
+  background-color: #041541;
+  padding: 10px;
 }
 
 .operators button{
   flex: 1 1 0%;
-  background-color: var(--primary);
+
   font-weight: 700;
+  background: #1300EF;
+  box-shadow: 0px 4px 33px 2px rgba(75, 71, 255, 0.24);
+  border-radius: 10px;
+  margin: 5px;
+  width: 50px;
+  text-align: center;  
 }
 
 .digits{

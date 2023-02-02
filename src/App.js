@@ -1,17 +1,23 @@
 import { useState } from "react";
 
 function App() {
+
   const [calc, setCalc] = useState("");
   const [setResult] = useState("");
 
  
   const op = ["/", "*", "+", "-", "."];
   const updateCalc = (value) => {
+    if(calc.includes("NaN")){
+      setCalc(value)
+      return;
+    }
     if (
       (op.includes(value) && calc === "") ||
       (op.includes(value) && op.includes(calc.slice(-1)))
     ) {
-    
+
+      
       return;
     }
 
@@ -46,7 +52,11 @@ function App() {
     if (calc ===''){
       return;
     }
-    const value = calc.slice(0, -1);
+
+    var value = calc.slice(0, -1);
+
+    if(calc.includes("NaN"))
+    value = "";
 
     setCalc(value);
   }
@@ -66,7 +76,11 @@ function App() {
       arr.splice(1,1);
       arr.splice(1,1);
     }
-    return arr[0];
+    
+   
+      return arr[0];
+   
+   
   }
 
   const safeEval =(eq) =>{
@@ -77,16 +91,16 @@ function App() {
     
   }
   
- 
-  
-  
   return (
     <div className="App">
       <div className="calculator">
+        <div className="bg_display">
         <div className="display">
     
-          {calc || "0"}
+    {calc || "0"}
+  </div>
         </div>
+       
 
         <div className="operators">
           <button onClick={() => updateCalc("/")}>/</button>
