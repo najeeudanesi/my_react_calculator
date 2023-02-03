@@ -8,7 +8,7 @@ function App() {
  
   const op = ["/", "*", "+", "-", "."];
   const updateCalc = (value) => {
-    if(calc.includes("NaN")||calc.includes("infinity")){
+    if(calc.includes("NaN")||calc.includes("Infinity")){
       setCalc(value)
       return;
     }
@@ -55,7 +55,7 @@ function App() {
 
     var value = calc.slice(0, -1);
 
-    if(calc.includes("NaN") || calc.includes("infinity"))
+    if(calc.includes("NaN") || calc.includes("Infinity"))
     value = "";
 
     setCalc(value);
